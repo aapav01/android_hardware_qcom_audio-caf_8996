@@ -136,6 +136,11 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_COMPRESS_VOIP)),true)
     LOCAL_SRC_FILES += voice_extn/compress_voip.c
 endif
 
+ifeq ($(strip $(AUDIO_FEATURE_SAMSUNG_DUAL_SIM)),true)
+    LOCAL_CFLAGS += -DSAMSUNG_DUAL_SIM
+    LOCAL_SRC_FILES += voice_extn/sec_voice_extn.c
+endif
+
 endif
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_EXTN_FORMATS)),true)
