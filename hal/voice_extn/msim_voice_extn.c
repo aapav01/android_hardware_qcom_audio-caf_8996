@@ -88,9 +88,9 @@ int msim_voice_extn_set_parameters(struct audio_device *adev __unused,
                             sizeof(value));
     if (ret >= 0) {
 #ifdef HTC_DUAL_SIM
-        voice_slot = property_get_int32(RADIO_PREFER_NETWORK_SLOT0) != 1 ? 0 : 1;
-        if (property_get_int32(RADIO_PREFER_NETWORK_SLOT0) ==
-                property_get_int32(RADIO_PREFER_NETWORK_SLOT1)) {
+        voice_slot = property_get_int32(RADIO_PREFER_NETWORK_SLOT0, 0) != 1 ? 0 : 1;
+        if (property_get_int32(RADIO_PREFER_NETWORK_SLOT0, 0) ==
+                property_get_int32(RADIO_PREFER_NETWORK_SLOT1, 0)) {
             voice_slot = 0;
         }
         if (strcmp(value, AUDIO_PARAMETER_VALUE_CP2)) {
@@ -101,7 +101,7 @@ int msim_voice_extn_set_parameters(struct audio_device *adev __unused,
 #elif SAMSUNG_DUAL_SIM
         msim_phone_type = property_get_int32(
                 strcmp(value, AUDIO_PARAMETER_VALUE_CP2) ?
-                AUDIO_PROPERTY_SEC_VSID1 : AUDIO_PROPERTY_SEC_VSID2) + 1;
+                AUDIO_PROPERTY_SEC_VSID1 : AUDIO_PROPERTY_SEC_VSID2, 0) + 1;
 #endif
         ALOGV("%s: phone_type: %d", __func__, msim_phone_type);
     }
